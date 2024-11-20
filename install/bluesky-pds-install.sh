@@ -21,7 +21,7 @@ $STD apt-get install -y gnupg
 msg_ok "Installed Dependencies"
 
 msg_info "Installing BlueSky PDS (Patience)"
-$STD bash <(curl -fsSL https://raw.githubusercontent.com/bluesky-social/pds/main/installer.sh)
+# $STD bash <(curl -fsSL https://raw.githubusercontent.com/bluesky-social/pds/main/installer.sh)
 msg_ok "Installed BlueSky PDS"
 
 motd_ssh
