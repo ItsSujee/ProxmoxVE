@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source <(curl -s https://raw.githubusercontent.com/ItsSujee/ProxmoxVE/refs/heads/bluesky-pds/misc/build.func)
-# Copyright (c) 2024 tteck
+# Copyright (c) 2024 itssujee
 # Author: itssujee
 # License: MIT
 # https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
@@ -57,5 +57,17 @@ start
 build_container
 description
 
-msg_ok "Completed Successfully!\n"
-echo -e "${APP} should be reachable by going to the following URL. http://${IP} \n" 
+cat <<INSTALLER_MESSAGE
+========================================================================
+PDS installation successful!
+------------------------------------------------------------------------
+
+Check service status      : sudo systemctl status pds
+Watch service logs        : sudo docker logs -f pds
+Backup service data       : /pds
+PDS Admin command         : pdsadmin
+
+To see pdsadmin commands, run "pdsadmin help"
+
+========================================================================
+INSTALLER_MESSAGE
