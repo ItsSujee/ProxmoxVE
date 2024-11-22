@@ -24,7 +24,7 @@ get_latest_release() {
 }
 
 DOCKER_LATEST_VERSION=$(get_latest_release "moby/moby")
-BLUESKYPDS_LATEST_VERSION=$(get_latest_release "bluesky-social/pds")
+BLUESKYPDS_LATEST_VERSION="0.4"
 PDSADMIN_URL="https://raw.githubusercontent.com/bluesky-social/pds/main/pdsadmin.sh"
 
 msg_info "Installing Docker $DOCKER_LATEST_VERSION"
