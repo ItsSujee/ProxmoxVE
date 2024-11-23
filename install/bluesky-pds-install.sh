@@ -51,15 +51,17 @@ Description=Bluesky PDS Service
 Documentation=https://github.com/bluesky-social/pds
 Requires=docker.service
 After=docker.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/root/pds
-ExecStart=/usr/bin/docker docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
+ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
 ExecStop=/usr/bin/docker stop pds
 Restart=always
+
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 EOF
 systemctl enable -q --now pds
 msg_ok "Created PDS Service"
