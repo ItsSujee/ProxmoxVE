@@ -41,7 +41,7 @@ msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 PDS_PATH='/pds'
 mkdir -p $(dirname $DOCKER_CONFIG_PATH)
-$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
+$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
 msg_ok "Installed BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 
 msg_info "Creating PDS Service"
