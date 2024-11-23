@@ -55,7 +55,7 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/root/pds
-ExecStart=/usr/bin/docker docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
+ExecStart=/usr/bin/docker docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
 ExecStop=/usr/bin/docker stop pds
 Restart=always
 [Install]
