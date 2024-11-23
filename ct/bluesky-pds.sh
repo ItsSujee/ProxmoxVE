@@ -49,7 +49,7 @@ function default_settings() {
   MAC=""
   VLAN=""
   SSH="no"
-  VERBOSE="yes"
+  VERB="yes"
   echo_default
 }
 
