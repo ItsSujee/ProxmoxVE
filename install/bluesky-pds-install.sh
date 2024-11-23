@@ -41,28 +41,28 @@ msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 PDS_PATH='/pds'
 mkdir -p $(dirname $DOCKER_CONFIG_PATH)
-# $STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
+$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
 
 
 # msg_info "Creating PDS Service"
-cat <<EOF >/etc/systemd/system/pds.service
-[Unit]
-Description=Bluesky PDS Service
-After=docker.service
+# cat <<EOF >/etc/systemd/system/pds.service
+# [Unit]
+# Description=Bluesky PDS Service
+# After=docker.service
 
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-WorkingDirectory=/root/pds
-ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
-ExecStop=/usr/bin/docker stop pds
-Restart=always
+# [Service]
+# Type=oneshot
+# RemainAfterExit=yes
+# WorkingDirectory=/root/pds
+# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
+# ExecStop=/usr/bin/docker stop pds
+# Restart=always
 
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl enable -q --now pds
+# [Install]
+# WantedBy=multi-user.target
+# EOF
+# systemctl daemon-reload
+# systemctl enable -q --now pds
 msg_ok "Installed BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 # msg_ok "Created PDS Service"
 
