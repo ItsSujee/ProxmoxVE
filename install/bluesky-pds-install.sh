@@ -50,7 +50,7 @@ msg_info "Pulling BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 $STD docker pull ghcr.io/bluesky-social/pds:latest
 msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 
-msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
+msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION (Patience)"
 
 $STD mkdir "/root/pds"
 
