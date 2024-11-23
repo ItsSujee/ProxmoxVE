@@ -61,8 +61,7 @@ Restart=always
 [Install]
 WantedBy=default.target
 EOF
-systemctl enable pds
-systemctl restart pds
+systemctl enable -q --now pds
 msg_ok "Created PDS Service"
 
 msg_info "Downloading pdsadmin tool"
