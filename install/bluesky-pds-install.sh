@@ -54,6 +54,7 @@ msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION (Patience)"
 
 $STD mkdir "/root/pds"
+$STD mkdir "/root/pds/blocks"
 
 cat <<PDS_CONFIG >"/root/pds/pds.env"
 PDS_HOSTNAME=${PDS_HOSTNAME}
@@ -72,26 +73,28 @@ PDS_CRAWLERS=${PDS_CRAWLERS}
 LOG_ENABLED=true
 PDS_CONFIG
 
-$STD docker run -d --name pds --network host --restart unless-stopped -v /root/pds:/root/pds --env-file /root/pds/pds.env ghcr.io/bluesky-social/pds:latest
+cat <<EOF >/etc/systemd/system/pds.service
+[Unit]
+Description=Bluesky PDS Service
+Documentation=https://github.com/bluesky-social/pds
+Requires=docker.service
+After=docker.service
 
-# cat <<EOF >/etc/systemd/system/pds.service
-# [Unit]
-# Description=Bluesky PDS Service
-# After=docker.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/root/pds
+ExecStartPre=-/usr/bin/docker stop pds
+ExecStartPre=-/usr/bin/docker rm pds
+ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /root/pds:/root/pds --env-file /root/pds/pds.env ghcr.io/bluesky-social/pds:latest
+ExecStop=/usr/bin/docker stop pds
 
-# [Service]
-# Type=oneshot
-# RemainAfterExit=yes
-# WorkingDirectory=/root/pds
-# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /root/pds:/root/pds --env-file /root/pds/pds.env ghcr.io/bluesky-social/pds:latest
-# ExecStop=/usr/bin/docker stop pds
-# Restart=always
+[Install]
+WantedBy=default.target
+EOF
 
-# [Install]
-# WantedBy=multi-user.target
-# EOF
-# systemctl daemon-reload
-# systemctl enable -q --now pds
+systemctl daemon-reload
+systemctl enable -q --now pds
 msg_ok "Installed BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 
 msg_info "Downloading pdsadmin tool"
