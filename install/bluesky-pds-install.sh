@@ -37,6 +37,7 @@ PDSADMIN_URL="https://raw.githubusercontent.com/bluesky-social/pds/main/pdsadmin
 GENERATE_SECURE_SECRET_CMD="openssl rand --hex 16"
 GENERATE_K256_PRIVATE_KEY_CMD="openssl ecparam --name secp256k1 --genkey --noout --outform DER | tail --bytes=+8 | head --bytes=32 | xxd --plain --cols 32"
 PDS_ADMIN_PASSWORD=$(eval "${GENERATE_SECURE_SECRET_CMD}")
+PDS_HOSTNAME=$(hostname -I | awk '{print $1}')
 
 
 msg_info "Installing Docker $DOCKER_LATEST_VERSION"
