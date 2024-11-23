@@ -83,7 +83,7 @@ $STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/p
 # Type=oneshot
 # RemainAfterExit=yes
 # WorkingDirectory=/root/pds
-# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
+# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /root/pds:/root/pds --env-file /root/pds/pds.env ghcr.io/bluesky-social/pds:latest
 # ExecStop=/usr/bin/docker stop pds
 # Restart=always
 
