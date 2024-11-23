@@ -41,10 +41,10 @@ msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
 PDS_PATH='/pds'
 mkdir -p $(dirname $DOCKER_CONFIG_PATH)
-$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
-msg_ok "Installed BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
+# $STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds ghcr.io/bluesky-social/pds:latest
 
-msg_info "Creating PDS Service"
+
+# msg_info "Creating PDS Service"
 cat <<EOF >/etc/systemd/system/pds.service
 [Unit]
 Description=Bluesky PDS Service
@@ -63,7 +63,8 @@ WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
 systemctl enable -q --now pds
-msg_ok "Created PDS Service"
+msg_ok "Installed BlueSky PDS $BLUESKYPDS_LATEST_VERSION"
+# msg_ok "Created PDS Service"
 
 msg_info "Downloading pdsadmin tool"
 curl -sfSo /usr/local/bin/pdsadmin "${PDSADMIN_URL}"
