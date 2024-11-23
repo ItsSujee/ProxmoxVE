@@ -49,7 +49,7 @@ function default_settings() {
   MAC=""
   VLAN=""
   SSH="no"
-  VERB="yes"
+  VERB="no"
   echo_default
 }
 
@@ -64,7 +64,7 @@ PDS installation successful!
 
 Check service status      : sudo systemctl status pds
 Watch service logs        : sudo docker logs -f pds
-Backup service data       : /pds
+Backup service data       : /root/pds
 PDS Admin command         : pdsadmin
 
 To see pdsadmin commands, run "pdsadmin help"

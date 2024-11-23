@@ -53,16 +53,16 @@ msg_ok "Pulled BlueSky PDS $BLUESKYPDS_LATEST_VERSION Image"
 
 msg_info "Installing BlueSky PDS $BLUESKYPDS_LATEST_VERSION (Patience)"
 
-$STD mkdir "/root/pds"
-$STD mkdir "/root/pds/blocks"
+$STD mkdir "/pds"
+$STD mkdir "/pds/blocks"
 
-cat <<PDS_CONFIG >"/root/pds/pds.env"
+cat <<PDS_CONFIG >"/pds/pds.env"
 PDS_HOSTNAME=${PDS_HOSTNAME}
 PDS_JWT_SECRET=$(eval "${GENERATE_SECURE_SECRET_CMD}")
 PDS_ADMIN_PASSWORD=${PDS_ADMIN_PASSWORD}
 PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX=$(eval "${GENERATE_K256_PRIVATE_KEY_CMD}")
-PDS_DATA_DIRECTORY=/root/pds/blocks
-PDS_BLOBSTORE_DISK_LOCATION=/root/pds/blocks
+PDS_DATA_DIRECTORY=/pds/blocks
+PDS_BLOBSTORE_DISK_LOCATION=/pds/blocks
 PDS_BLOB_UPLOAD_LIMIT=52428800
 PDS_DID_PLC_URL=${PDS_DID_PLC_URL}
 PDS_BSKY_APP_VIEW_URL=${PDS_BSKY_APP_VIEW_URL}
@@ -83,10 +83,10 @@ After=docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/root/pds
+WorkingDirectory=/pds
 ExecStartPre=-/usr/bin/docker stop pds
 ExecStartPre=-/usr/bin/docker rm pds
-ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /root/pds:/root/pds --env-file /root/pds/pds.env ghcr.io/bluesky-social/pds:latest
+ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
 ExecStop=/usr/bin/docker stop pds
 
 [Install]
