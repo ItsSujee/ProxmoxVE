@@ -72,7 +72,7 @@ PDS_CRAWLERS=${PDS_CRAWLERS}
 LOG_ENABLED=true
 PDS_CONFIG
 
-$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds -env_file /pds/pds.env ghcr.io/bluesky-social/pds:latest
+$STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
 
 # cat <<EOF >/etc/systemd/system/pds.service
 # [Unit]
@@ -83,7 +83,7 @@ $STD docker run -d --name pds --network host --restart unless-stopped -v /pds:/p
 # Type=oneshot
 # RemainAfterExit=yes
 # WorkingDirectory=/root/pds
-# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds -env_file /pds/pds.env ghcr.io/bluesky-social/pds:latest
+# ExecStart=/usr/bin/docker run -d --name pds --network host --restart unless-stopped -v /pds:/pds --env-file /pds/pds.env ghcr.io/bluesky-social/pds:latest
 # ExecStop=/usr/bin/docker stop pds
 # Restart=always
 
