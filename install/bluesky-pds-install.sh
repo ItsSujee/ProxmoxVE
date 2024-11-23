@@ -48,8 +48,6 @@ msg_info "Creating PDS Service"
 cat <<EOF >/etc/systemd/system/pds.service
 [Unit]
 Description=Bluesky PDS Service
-Documentation=https://github.com/bluesky-social/pds
-Requires=docker.service
 After=docker.service
 
 [Service]
@@ -63,6 +61,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+systemctl daemon-reload
 systemctl enable -q --now pds
 msg_ok "Created PDS Service"
 
